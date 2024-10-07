@@ -14,7 +14,8 @@ function foo (int  $a, int $b, int ...$arg) : int  {
 }
 
 $a = 1;
-echo foo($a,b: 2);
+// echo foo($a,b: 2);
+echo foo(...['a'=>1, 'b'=>2]);
 echo "<br>";
 
 
