@@ -73,18 +73,42 @@ function sums(...$arg){
 
 
 
-/*
+
 
 // anonymous function
-$global = 10;
-$sum = function (...$arg) use ($global) {
-    echo $global;
-    return array_sum($arg);
+
+
+// $global = 10;
+// $sum = function (...$arg) use ($global) {
+//     echo $global;
+//     return array_sum($arg);
+// };
+// $sum();
+
+
+
+//call back fun
+
+// $callBack = function ($element){
+//     return $element * 2;
+// };
+ function callBack ($element){
+    return $element * 2;
 };
-$sum();
 
 
-*/
+// $arr2 = array_map(function ($element){
+//     return $element * 2;
+// },[1,2,3,4,5]);
+
+
+$arr2 = array_map('callBack',[1,2,3,4,5]);
+
+$arr3 = array_map(fn($el)=> $el*2 ,[1,2,3,4,5]);
+
+print_r($arr2);
+echo "<br>";
+print_r($arr3);
 
 
 
