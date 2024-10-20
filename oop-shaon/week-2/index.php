@@ -16,3 +16,5 @@ echo "<br>";
 
 // 'walter.sophia@hotmail.com'
 echo $faker->text();
+echo "<br>";
+echo stringToLower('HELLO WORLD');

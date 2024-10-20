@@ -2,7 +2,7 @@
 *vendor/
 
 # Ignore Composer lock file
-composer.lock
+# composer.lock
 
 # Ignore Composer cache
 composer.phar
