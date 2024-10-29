@@ -15,10 +15,10 @@ class Content
         $this->author = $author;
         $this->content = $content;
     }
-    public function publish()
-    {
-        echo "Published";
-    }
+    // public function publish()
+    // {
+    //     echo "Published";
+    // }
 
     // public function edit () {
     //     echo "Edited";
@@ -31,9 +31,16 @@ trait editAble {
     }
 }
 
+trait publishAble {
+    public function publish () {
+        echo "Published";
+    }
+}
+
+// single responsibility principle violation
 class BlogPost extends Content
 {
-    use editAble;
+    use editAble, publishAble;
     //  abstraction
     public string $title;
 
@@ -46,12 +53,53 @@ class BlogPost extends Content
     public function edit () {
        echo "Edited";
     }
+
+    public function getContent (FormatterInterface $formatter) { // Dependency Inversion Principle
+        return $formatter->getContent($this->content);
+    }
+}
+
+// class ContentFormatter {
+//     public function getContent (string $content , string $type = 'html') {
+    
+//         if ($type === 'html') {
+//               return "<p>{$content}</p>";
+//         }
+//         else if ($type === 'json') {
+//             return json_encode(['content' => $content]);
+//         }
+       
+//       }
+// }
+
+
+
+// open close principle
+// open for extension but closed for modification
+interface FormatterInterface {
+    public function getContent(string $content);
+}
+class HtmlFormatter implements FormatterInterface {
+    public function getContent(string $content) {
+        return "<p>{$content}</p>";
+    }
+}
+class JsonFormatter implements FormatterInterface {
+    public function getContent(string $content) {
+        return json_encode(['content' => $content]);
+    }
+}
+
+class MarkDownFormatter implements FormatterInterface {
+    public function getContent(string $content) {
+        return "<p>{$content}</p>";
+    }
 }
 
 
 class Comment extends Content
 {
-    use editAble;
+    use editAble, publishAble;
 
     public function __construct($author, $content)
     {
@@ -84,7 +132,7 @@ class EmailContent extends Content
 
 class CMS {
     public function editContent(Content $content) {
-        $content->edit();
+        $content->publish();
     }
 }
 
